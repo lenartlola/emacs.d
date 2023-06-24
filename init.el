@@ -22,3 +22,7 @@
 
 ; Disable annoying ~ backups
 (setq make-backup-files nil)
+
+
+; Theme
+(load-theme 'timu-macos t)
