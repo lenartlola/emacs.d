@@ -1,6 +1,7 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
+(package-initialize)
 
 (global-display-line-numbers-mode 1) ; Display line numbers
 (custom-set-variables
@@ -8,7 +9,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(timu-macos-theme timu-rouge-theme neotree dired-sidebar)))
+ '(package-selected-packages
+   '(elcord clang-format ggtags volatile-highlights helm helm-gtags docker-compose-mode dockerfile-mode timu-macos-theme timu-rouge-theme neotree dired-sidebar)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -26,3 +28,16 @@
 
 ; Theme
 (load-theme 'timu-macos t)
+
+; clang
+(require 'clang-format)
+(setq clang-format-style "file")
+
+; Discord rich presence
+(require 'elcord)
+(elcord-mode)
+
+; Tab settings
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
