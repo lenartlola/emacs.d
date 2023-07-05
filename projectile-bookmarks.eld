@@ -1,0 +1,1 @@
+("~/.emacs.d/" "/goinfre/hsabir/projects/side/RNN/")
