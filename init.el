@@ -11,7 +11,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lsp-mode projectile elcord clang-format ggtags volatile-highlights helm helm-gtags docker-compose-mode dockerfile-mode timu-macos-theme timu-rouge-theme neotree dired-sidebar)))
+   '(evil lsp-mode projectile elcord clang-format ggtags volatile-highlights helm helm-gtags docker-compose-mode dockerfile-mode timu-macos-theme timu-rouge-theme neotree dired-sidebar)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -27,6 +27,8 @@
 ; Disable annoying ~ backups
 (setq make-backup-files nil)
 
+;; Disable auto-save files
+(setq auto-save-default nil)
 
 ; Theme
 (load-theme 'timu-macos t)
@@ -105,4 +107,9 @@
 (setq whitespace-line-column 80)
 (setq whitespace-style '(face lines-tail))
 (add-hook 'prog-mode-hook 'whitespace-mode)
+
+; Evil mode
+
+(require 'evil)
+(evil-mode t)
 
