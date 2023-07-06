@@ -11,7 +11,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(projectile-codesearch evil lsp-mode projectile elcord clang-format ggtags volatile-highlights helm helm-gtags docker-compose-mode dockerfile-mode timu-macos-theme timu-rouge-theme neotree dired-sidebar)))
+   '(magit prettier-js prettier projectile-codesearch evil lsp-mode projectile elcord clang-format ggtags volatile-highlights helm helm-gtags docker-compose-mode dockerfile-mode timu-macos-theme timu-rouge-theme neotree dired-sidebar)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -112,3 +112,8 @@
 
 (require 'evil)
 (evil-mode t)
+
+; prettier
+
+(require 'prettier-js)
+
