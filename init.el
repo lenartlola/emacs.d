@@ -11,7 +11,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(markdown-preview-mode windresize typescript-mode magit prettier-js prettier projectile-codesearch evil lsp-mode projectile elcord clang-format ggtags volatile-highlights helm helm-gtags docker-compose-mode dockerfile-mode timu-macos-theme timu-rouge-theme neotree dired-sidebar)))
+   '(tide markdown-preview-mode windresize typescript-mode magit prettier-js prettier projectile-codesearch evil lsp-mode projectile elcord clang-format ggtags volatile-highlights helm helm-gtags docker-compose-mode dockerfile-mode timu-macos-theme timu-rouge-theme neotree dired-sidebar)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -48,17 +48,6 @@
 
 ; ggtags
 (require 'ggtags)
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
-              (ggtags-mode 1))))
-(define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
-(define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
-(define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
-(define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
-(define-key ggtags-mode-map (kbd "C-c g c") 'ggtags-create-tags)
-(define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
-(define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
 
 ; auto-complete
 (require 'auto-complete)
@@ -116,4 +105,38 @@
 ; prettier
 
 (require 'prettier-js)
+
+; Tide
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+(add-hook 'before-save-hook 'tide-format-before-save)
+
+;; if you use typescript-mode
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+;; if you use treesitter based typescript-ts-mode (emacs 29+)
+(add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
+
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-hook 'web-mode-hook
+          (lambda ()
+            (when (string-equal "tsx" (file-name-extension buffer-file-name))
+              (setup-tide-mode))))
+;; enable typescript-tslint checker
+(flycheck-add-mode 'typescript-tslint 'web-mode)
 
