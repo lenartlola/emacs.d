@@ -1,1 +1,1 @@
-("~/.emacs.d/" "/goinfre/hsabir/projects/side/RNN/")
+("~/.emacs.d/" "~/Documents/pelops-mobile/" "/goinfre/hsabir/projects/side/RNN/")
